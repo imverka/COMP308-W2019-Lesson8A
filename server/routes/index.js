@@ -13,7 +13,7 @@ router.get("/products", indexController.displayProductPage);
 
 router.get("/services", indexController.displayServicePage);
 
-router.get("/favThings", indexController.diplayFavThings);
+router.get("/favThings", indexController.displayFavThings);
 
 // GET login page
 router.get("/login", indexController.displayLoginPage);
@@ -22,7 +22,7 @@ router.get("/login", indexController.displayLoginPage);
 router.post("/login", indexController.processLoginPage);
 
 // GET - display the user registration page
-router.get("/register", indexController.displayResgisterPage);
+router.get("/register", indexController.displayRegisterPage);
 
 // POST - processes the user registration page
 router.post("/register", indexController.processRegisterPage);

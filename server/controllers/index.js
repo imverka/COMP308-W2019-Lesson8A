@@ -42,7 +42,7 @@ module.exports.displayServicePage = (req, res, next) => {
   });
 };
 
-module.exports.diplayFavThings = (req, res, next) => {
+module.exports.displayFavThings = (req, res, next) => {
   res.render("index", {
     title: "Favourites",
     displayName: req.user ? req.user.displayName : ""
@@ -83,7 +83,7 @@ module.exports.processLoginPage = (req, res, next) => {
   })(req, res, next);
 };
 
-module.exports.displayResgisterPage = (req, res, next) => {
+module.exports.displayRegisterPage = (req, res, next) => {
   if (!req.user) {
     res.render("auth/register", {
       title: "Register",
