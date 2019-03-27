@@ -11,12 +11,12 @@ router.get("/contact", indexController.displayContactPage);
 
 router.get("/products", indexController.displayProductPage);
 
-router.get("/services", indexController.displayAboutPage);
+router.get("/services", indexController.displayServicePage);
 
 router.get("/favThings", indexController.diplayFavThings);
 
 // GET login page
-router.get("/login", indexController.processLoginPage);
+router.get("/login", indexController.displayLoginPage);
 
 // POST  - processes the login page
 router.post("/login", indexController.processLoginPage);
