@@ -4,13 +4,16 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+let cors = require('cors');
 
 // modules for authentication
 let session = require('express-session');
 let passport = require('passport');
-let passportLocal = require('passport-local');
-let localStrategy = passportLocal.Strategy;
-let flash = require('connect-flash');
+
+
+let passportJWT = require('passport-jwt');
+let JWTStrategy = passportJWT.Strategy;
+let ExtractJWT = passportJWT.ExtractJwt;
 
 
 //database setup
@@ -47,6 +50,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
+
+app.use(cors());
+
 // setup express-session
 app.use(session({
   secret: "SomeSecret",
@@ -55,7 +61,7 @@ app.use(session({
 }));
 
 // initialize flash
-app.use(flash());
+//app.use(flash());
 
 // initialize passport
 app.use(passport.initialize());
@@ -75,10 +81,30 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// this part verifies that the token is being sent by the user and is valid
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = DB.secret;
 
-app.use('/', indexRouter);
-app.use('/contact-list', contactRouter);
-app.use('/fav-Things', thingsRouter);
+let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
+  User.findById(jwt_payload.id)
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(err => {
+      return done(err, false);
+    });
+});
+
+
+passport.use(strategy);
+
+app.use('/api', indexRouter);
+app.use('/api/contact-list', contactRouter); // TODO - protect this section
+app.use('/api/fav-Things', thingsRouter);
+
+// TODO - need to capture random links or incorrect url information
+
 //app.use('/add', contactRouter);
 //app.use('/users', usersRouter);
 
