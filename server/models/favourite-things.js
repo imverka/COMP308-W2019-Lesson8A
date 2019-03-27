@@ -7,8 +7,7 @@ mongoose.connect('mongodb://verka:a123456@ds044989.mlab.com:44989/maninder');
 let thingsSchema = mongoose.Schema({
     name: String,
     desc: String
-},
-{
+}, {
     collection: "favourite-things"
 });
 

@@ -8,19 +8,18 @@ let things = require('../models/favourite-things');
 
 // GET Fav Things list page - READ
 router.get('/', (req, res, next) => {
-    
+
     things.find((err, favThing) => {
-        
-        if(err){
+
+        if (err) {
             return console.error(err);
-        }
-        else{
+        } else {
             console.log(favThing);
             res.render('favThings/index', {
                 title: 'Favourite Things',
                 favThing: favThing
             });
-            
+
         }
     })
 });

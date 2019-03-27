@@ -7,9 +7,8 @@ let contactSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
     age: Number
-},
-{
-    collection: "first" 
+}, {
+    collection: "first"
 });
 
 
