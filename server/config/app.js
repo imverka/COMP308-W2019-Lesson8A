@@ -103,7 +103,7 @@ app.use('/api', indexRouter);
 app.use('/api/contact-list', contactRouter); // TODO - protect this section
 app.use('/api/fav-Things', thingsRouter);
 app.use('*', (req, res) => {
-  res.sendfile(path.join(__dirname, '../../public/index.html'));
+  res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
 
 // TODO - need to capture random links or incorrect url information
